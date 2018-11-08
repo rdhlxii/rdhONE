@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="creator" content="rfcmarkup version 1.128b" />
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DC.Identifier" content="urn:ietf:id:jivsov-ecc-compact" />
+<meta name="DC.Description.Abstract" content="This document defines a format for efficient storage representation of
+an elliptic curve point over prime fields, suitable for use with any
+IETF format or protocol." />
+<meta name="DC.Creator" content="Andrey Jivsov &lt;crypto@brainhub.org&gt;" />
+<meta name="DC.Date.Issued" content="2014-03-15" />
+<meta name="DC.Title" content="Compact representation of an elliptic curve point" />
+
+    <link rel="icon" href="/images/id.png" type="image/png" />
+    <link rel="shortcut icon" href="/images/id.png" type="image/png" />
+    <title>draft-jivsov-ecc-compact-05 - Compact representation of an elliptic curve point</title>
+    
+    
+    <style type="text/css">
+	@media only screen 
+	  and (min-width: 992px)
+	  and (max-width: 1199px) {
+	    body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 768px)
+	  and (max-width: 991px) {
+            body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 480px)
+	  and (max-width: 767px) {
+            body { font-size: 11pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (max-width: 479px) {
+            body { font-size: 8pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-device-width : 375px) 
+	  and (max-device-width : 667px) {
+            body { font-size: 9.5pt; }
+            div.content { width: 96ex; margin: 0 1px; }
+        }
+	@media only screen 
+	  and (min-device-width: 1200px) {
+            body { font-size: 10pt; margin: 0 4em; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	    font-weight: bold;
+            line-height: 0pt;
+            display: inline;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 1em;
+	    font-weight: bold;
+        }
+        pre {
+            font-size: 1em;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            display: inline-block;
+        }
+	.pre {
+	    white-space: pre;
+	    font-family: monospace;
+	}
+	.header{
+	    font-weight: bold;
+	}
+        .newpage {
+            page-break-before: always;
+        }
+        .invisible {
+            text-decoration: none;
+            color: white;
+        }
+        a.selflink {
+          color: black;
+          text-decoration: none;
+        }
+        @media print {
+            body {
+                font-family: monospace;
+                font-size: 10.5pt;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 1em;
+            }
+        
+            a:link, a:visited {
+                color: inherit;
+                text-decoration: none;
+            }
+            .noprint {
+                display: none;
+            }
+        }
+	@media screen {
+	    .grey, .grey a:link, .grey a:visited {
+		color: #777;
+	    }
+            .docinfo {
+                background-color: #EEE;
+            }
+            .top {
+                border-top: 7px solid #EEE;
+            }
+            .bgwhite  { background-color: white; }
+            .bgred    { background-color: #F44; }
+            .bggrey   { background-color: #666; }
+            .bgbrown  { background-color: #840; }            
+            .bgorange { background-color: #FA0; }
+            .bgyellow { background-color: #EE0; }
+            .bgmagenta{ background-color: #F4F; }
+            .bgblue   { background-color: #66F; }
+            .bgcyan   { background-color: #4DD; }
+            .bggreen  { background-color: #4F4; }
+
+            .legend   { font-size: 90%; }
+            .cplate   { font-size: 70%; border: solid grey 1px; }
+	}
+    </style>
+    <!--[if IE]>
+    <style>
+    body {
+       font-size: 13px;
+       margin: 10px 10px;
+    }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript"><!--
+    function addHeaderTags() {
+	var spans = document.getElementsByTagName("span");
+	for (var i=0; i < spans.length; i++) {
+	    var elem = spans[i];
+	    if (elem) {
+		var level = elem.getAttribute("class");
+                if (level == "h1" || level == "h2" || level == "h3" || level == "h4" || level == "h5" || level == "h6") {
+                    elem.innerHTML = "<"+level+">"+elem.innerHTML+"</"+level+">";		
+                }
+	    }
+	}
+    }
+    var legend_html = "Colour legend:<br />      <table>         <tr><td>Unknown:</td>                   <td><span class='cplate bgwhite'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft:</td>                     <td><span class='cplate bgred'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Informational:</td>             <td><span class='cplate bgorange'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Experimental:</td>              <td><span class='cplate bgyellow'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Best Common Practice:</td>      <td><span class='cplate bgmagenta'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Proposed Standard:</td>         <td><span class='cplate bgblue'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft Standard (old designation):</td> <td><span class='cplate bgcyan'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Internet Standard:</td>         <td><span class='cplate bggreen'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Historic:</td>                  <td><span class='cplate bggrey'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Obsolete:</td>                  <td><span class='cplate bgbrown'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>     </table>";
+    function showElem(id) {
+        var elem = document.getElementById(id);
+        elem.innerHTML = eval(id+"_html");
+        elem.style.visibility='visible';
+    }
+    function hideElem(id) {
+        var elem = document.getElementById(id);
+        elem.style.visibility='hidden';        
+        elem.innerHTML = "";
+    }
+    // -->
+    </script>
+</head>
+<body onload="addHeaderTags()">
+  <div class="content">
+   <div style="height: 13px;">
+      <div onmouseover="this.style.cursor='pointer';"
+         onclick="showElem('legend');"
+         onmouseout="hideElem('legend')"
+	 style="height: 6px; position: absolute;"
+         class="pre noprint docinfo bgred"
+         title="Click for colour legend." >                                                                        </div>
+      <div id="legend"
+           class="docinfo noprint pre legend"
+           style="position:absolute; top: 4px; left: 4ex; visibility:hidden; background-color: white; padding: 4px 9px 5px 7px; border: solid #345 1px; "
+           onmouseover="showElem('legend');"
+           onmouseout="hideElem('legend');">
+      </div>
+   </div>
+<span class="pre noprint docinfo top">[<a href="../html/" title="Document search and retrieval page">Docs</a>] [<a href="https://tools.ietf.org/id/draft-jivsov-ecc-compact-05.txt" title="Plaintext version of this document">txt</a>|<a href="/pdf/draft-jivsov-ecc-compact-05.txt" title="PDF version of this document">pdf</a>|<a href="/id/draft-jivsov-ecc-compact-05.xml" title="XML source for this document">xml</a>|<a href="/id/draft-jivsov-ecc-compact-05.html" title="HTML version of this document, from XML2RFC">html</a>] [<a href='https://datatracker.ietf.org/doc/draft-jivsov-ecc-compact' title='IESG Datatracker information for this document'>Tracker</a>] [<a href="mailto:draft-jivsov-ecc-compact@ietf.org?subject=draft-jivsov-ecc-compact%20" title="Send email to the document authors">Email</a>] [<a href="/rfcdiff?difftype=--hwdiff&amp;url2=draft-jivsov-ecc-compact-05.txt" title="Inline diff (wdiff)">Diff1</a>] [<a href="/rfcdiff?url2=draft-jivsov-ecc-compact-05.txt" title="Side-by-side diff">Diff2</a>] [<a href="/idnits?url=https://tools.ietf.org/id/draft-jivsov-ecc-compact-05.txt" title="Run an idnits check of this document">Nits</a>]      </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<span class="pre noprint docinfo">Versions: <a href="./draft-jivsov-ecc-compact-00">00</a> <a href="./draft-jivsov-ecc-compact-01">01</a> <a href="./draft-jivsov-ecc-compact-02">02</a> <a href="./draft-jivsov-ecc-compact-03">03</a> <a href="./draft-jivsov-ecc-compact-04">04</a> <a href="./draft-jivsov-ecc-compact-05">05</a>                                             </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<pre>
+Network Workign Group                                          A. Jivsov
+Internet-Draft                                      Symantec Corporation
+Intended status: Informational                            March 15, 2014
+Expires: September 16, 2014
+
+
+           <span class="h1">Compact representation of an elliptic curve point</span>
+                      <span class="h1">draft-jivsov-ecc-compact-05</span>
+
+Abstract
+
+   This document defines a format for efficient storage representation
+   of an elliptic curve point over prime fields, suitable for use with
+   any IETF format or protocol.
+
+Status of this Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of <a href="./bcp78">BCP 78</a> and <a href="./bcp79">BCP 79</a>.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at <a href="http://datatracker.ietf.org/drafts/current/">http://datatracker.ietf.org/drafts/current/</a>.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on September 16, 2014.
+
+Copyright Notice
+
+   Copyright (c) 2014 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="./bcp78">BCP 78</a> and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 1]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2" id="page-2" href="#page-2" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+Table of Contents
+
+   <a href="#section-1">1</a>.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-3">3</a>
+   <a href="#section-2">2</a>.  Conventions used in this document  . . . . . . . . . . . . . .  <a href="#page-3">3</a>
+   <a href="#section-3">3</a>.  Overview of the compact representation in IETF protocols . . .  <a href="#page-3">3</a>
+   <a href="#section-4">4</a>.  The definition of the compact representation . . . . . . . . .  <a href="#page-4">4</a>
+     <a href="#section-4.1">4.1</a>.  Encoding and decoding of an elliptic curve point . . . . .  <a href="#page-5">5</a>
+     <a href="#section-4.2">4.2</a>.  The algorithms to generate a key pair  . . . . . . . . . .  <a href="#page-6">6</a>
+       <a href="#section-4.2.1">4.2.1</a>.  The black box key generation algorithm . . . . . . . .  <a href="#page-6">6</a>
+       <a href="#section-4.2.2">4.2.2</a>.  The deterministic key generation algorithm . . . . . .  <a href="#page-7">7</a>
+       <a href="#section-4.2.3">4.2.3</a>.  The key generation algorithm for the sum of points . .  <a href="#page-7">7</a>
+       <a href="#section-4.2.4">4.2.4</a>.  The key generation algorithm for the multiples . . . .  <a href="#page-8">8</a>
+     <a href="#section-4.3">4.3</a>.  The efficient square root algorithm for p=4*k+3  . . . . .  <a href="#page-8">8</a>
+     <a href="#section-4.4">4.4</a>.  General applicability  . . . . . . . . . . . . . . . . . .  <a href="#page-9">9</a>
+   <a href="#section-5">5</a>.  Interoperability considerations  . . . . . . . . . . . . . . . <a href="#page-10">10</a>
+   <a href="#section-6">6</a>.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-10">10</a>
+   <a href="#section-7">7</a>.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . <a href="#page-11">11</a>
+   <a href="#section-8">8</a>.  Security Considerations  . . . . . . . . . . . . . . . . . . . <a href="#page-11">11</a>
+   <a href="#section-9">9</a>.  References . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-12">12</a>
+     <a href="#section-9.1">9.1</a>.  Normative References . . . . . . . . . . . . . . . . . . . <a href="#page-12">12</a>
+     <a href="#section-9.2">9.2</a>.  Informative References . . . . . . . . . . . . . . . . . . <a href="#page-13">13</a>
+   <a href="#appendix-A">Appendix A</a>.  Sample code change to add compliant key
+                generation to libgcrypt and openssl . . . . . . . . . <a href="#page-14">14</a>
+     <a href="#appendix-A.1">A.1</a>.  libgcrypt changes  . . . . . . . . . . . . . . . . . . . . <a href="#page-14">14</a>
+     <a href="#appendix-A.2">A.2</a>.  OpenSSL changes  . . . . . . . . . . . . . . . . . . . . . <a href="#page-15">15</a>
+   Author's Address . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-15">15</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 2]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3" id="page-3" href="#page-3" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+<span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
+
+   The National Security Agency (NSA) of the United States specifies
+   elliptic curve cryptography (ECC) for use in its [<a href="#ref-SuiteB" title="&quot;NSA Suite B Cryptography&quot;">SuiteB</a>] set of
+   algorithms.  The NIST elliptic curves over the prime fields
+   [<a href="#ref-FIPS-186" title="&quot;Digital Signature Standard (DSS)&quot;">FIPS-186</a>], which include [<a href="#ref-SuiteB" title="&quot;NSA Suite B Cryptography&quot;">SuiteB</a>] curves, or the Brainpool curves
+   [<a href="./rfc5639" title="&quot;Elliptic Curve Cryptography (ECC) Brainpool Standard Curves and Curve Generation&quot;">RFC5639</a>] are the examples of curves over prime fields.
+
+   This document provides an efficient format for compact representation
+   of a point on an elliptic curve over a prime field.  It is intended
+   as an open format that other IETF protocols can rely on to minimize
+   space required to store an ECC point.  This document complements the
+   [<a href="./rfc6090" title="&quot;Fundamental Elliptic Curve Cryptography Algorithms&quot;">RFC6090</a>] with the on-the-wire definition of an ECC point.  The
+   method described here can be applied to a various types of elliptic
+   curves, see <a href="#section-4.4">Section 4.4</a>.
+
+   One of the benefits of the ECC is the small size of field elements.
+   The compact representation reduces the encoded size of an ECC element
+   in half, which can be a substantial saving in cases such as
+   encryption of a short message sent to multiple recipients.
+
+
+<span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions used in this document</span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="./rfc2119" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+
+<span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Overview of the compact representation in IETF protocols</span>
+
+   IETF protocols often use the [<a href="#ref-SEC1">SEC1</a>] representation of a point on an
+   elliptic curve, which is a sequence of the following fields:
+
+   Field  Description
+   ------ --------------------------------------------------------------
+   B0     {02, 03, 04}, where 02 or 03 represent a compressed point (x
+          only), while 04 represents a complete point (x,y)
+   X      x coordinate of a point
+   Y      y coordinate of a point, optional (present only for B0=04)
+
+                         SEC1 point representation
+
+   The [<a href="#ref-SEC1">SEC1</a>] is an example of a general-purpose elliptic curve point
+   compression.  The idea behind these methods is the following:
+
+   o  For the given point P=(x,y) the y coordinate can be derived from x
+      by solving the corresponding elliptic curve equation.
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 3]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-4" id="page-4" href="#page-4" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+   o  There are two possible y coordinates for any x of a given P
+
+   o  The either of the two possibilities for y is encoded in some way
+      in the compressed representation
+
+   There are a few undesirable properties of the above representation:
+
+   o  The requirement to store one bit to identify the 'y' means that
+      the whole byte is required.
+
+   o  For most well-known elliptic curves the extra byte removes the
+      power of two alignment for the encoded point.
+
+   o  The requirement for the balanced security calls for the ECC curve
+      size to be equal the hash output size, yet the storage length of
+      the ECC point is equal to the hash output size + 1.
+
+   o  The encoded point is not a multi-precision integer, but a
+      structured sequence of bytes.  For example, special wording is
+      required to define the encoding of the [<a href="#ref-FIPS-186" title="&quot;Digital Signature Standard (DSS)&quot;">FIPS-186</a>] P-521 to clarify
+      how odd number of bits for x and y, or a bit representing y, are
+      packed into bytes.
+
+   o  Some protocols, such as ECDH, don't depend on the exact value of
+      the y.  It is unnecessary to track the precise point P=(x,y) in
+      such protocols.
+
+
+<span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  The definition of the compact representation</span>
+
+   This document is an improvement to the idea by [<a href="#ref-Miller" title="&quot;Use of elliptic curves in cryptography&quot;">Miller</a>] to not
+   transmit the y coordinate of an ECC point in the elliptic curve
+   Diffie-Hellman (ECDH) protocol.
+
+   We will use the following notations for the ECC point Q and the
+   features of the corresponding elliptic curve:
+
+      Q = k*G, where
+
+      Q = (x,y) is the point on an elliptic curve (the canonical
+      represenation)
+
+      k - the private key (a scalar)
+
+      G - the elliptic curve generator point
+
+      y^2 = C(x) is the appropriate Weierstrass equation linking x and
+      y; for example, C(x) = x^3 + a*x + b is used for the short
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 4]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-5" id="page-5" href="#page-5" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+      Weierstrass form
+
+      p - the order of the underlying finite field to which x and y
+      belong
+
+      Ord - the order of the elliptic curve field, i.e. the number of
+      points on the curve ( Ord*G = O, where O is the identity element )
+
+   This document specify how Q is represented in the compact form.  The
+   integer operations considered in this document are performed modulo
+   prime p and "(mod p)" is assumed in every formula with x and y.
+
+   Every elliptic curve for prime p (more generally, for any underlying
+   field that doesn't have characteristic 2) can be represented as y^2 =
+   C(x) with appropriate substitution, where C(x) is degree-3 polynomial
+   in x.
+
+   The steps to create and interpret the compact representation of a
+   point are described next.  A special key generation algorithm is
+   needed to make them possible, defined later in <a href="#section-4.2">Section 4.2</a>.
+
+<span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Encoding and decoding of an elliptic curve point</span>
+
+   Encoding:  Given the canonical representation of Q=(x,y), return the
+        x as its compact representation.
+
+   Decoding:  Given the compact representation of Q, return canonical
+        representation of Q=(x,y) as follows:
+
+        1.   y' = sqrt( C(x) ), where y'&gt;0
+
+        2.   y = min(y',p-y')
+
+        3.   Q=(x,y) is the canonical representation of the point
+
+   Recall that the x is an element in the underlying finite field,
+   represented by an integer.  Its precise encoding SHOULD be consistent
+   with encoding of other multi-precision integers in the application,
+   for example, it would be the same encoding as used for the r or s
+   integer that is a part of the DSA signature and it is typically a
+   sequence of big-endian bytes.
+
+   The efficient algorithm to recover y for [<a href="#ref-SuiteB" title="&quot;NSA Suite B Cryptography&quot;">SuiteB</a>] or the Brainpool
+   curves [<a href="./rfc5639" title="&quot;Elliptic Curve Cryptography (ECC) Brainpool Standard Curves and Curve Generation&quot;">RFC5639</a>], among others, is given in <a href="#section-4.3">Section 4.3</a>.
+
+   min(y,p-y) can be calculated with the help of the pre-calculated
+   value p2=(p-1)/2. min(y,p-y) is y if y&lt;=p2 and p-y otherwise.
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 5]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-6" id="page-6" href="#page-6" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+   The efficient encoding and decoding algorithms are possible with the
+   special key generation algorithm, defined next.
+
+<span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  The algorithms to generate a key pair</span>
+
+   This document specifies two algorithms, called the "black box" and
+   the "deterministic" key generation algorithms, to generate a key pair
+   {k, Q=k*G=(x,y)}, where k is the private key and Q=(x,y) is the
+   public key.  A key pair generated according to the requirements in
+   this section is called a compliant key pair, and the public key of
+   such a key pair -- a compliant public key.  A compliant public key
+   Q=(x,y) allows compact representation as x, as defined in
+   <a href="#section-4.1">Section 4.1</a>.
+
+   Both key generation algorithms can be built with any general purpose
+   key generation algorithm which would be needed in any ECC
+   implementation that generates keys, regardless of the support for any
+   method defined in this document.  Such a general purpose key
+   generation algorithm is referred in this section as "KG".
+
+   The black box algorithm works in scenarios when the KG doesn't allow
+   any adjustments to the private key.  The disadvantage of this
+   algorithm is that multiple KGs may be needed to generate a single key
+   pair {k, Q}.  The deterministic algorithm is similar, except that it
+   is allowed to perform a simple and fast modification to the private
+   key after the KG.  The advantage of the second algorithm is
+   performance, in particular, the guarantee that only a single KG is
+   needed.
+
+<span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  The black box key generation algorithm</span>
+
+   The following algorithm calculates a key pair {k, Q=k*G=(x,y)}, where
+   k is the private key and Q=(x,y) is the public key.
+
+   Black box generation:
+
+        1.   Generate a key pair {k, Q=k*G=(x,y)} with KG
+
+        2.   if( y != min(y,p-y) ) goto step 1
+
+        3.   output {k, Q=(x,y)} as a key pair
+
+   Note that the step 1 is a general purpose key generation algorithm,
+   such as an algorithm compliant with [<a href="#ref-NIST-SP800-133" title="&quot;Recommendation for Cryptographic Key Generation&quot;">NIST-SP800-133</a>].  Step 1 assumes
+   neither changes to existing key generation methods nor access to the
+   private key in clear.
+
+   The expected number of iterations in the loop in the above algorithm
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 6]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-7" id="page-7" href="#page-7" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+   is 2.  The step 2 is not needed for the ECDH keys.
+
+<span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  The deterministic key generation algorithm</span>
+
+   The following algorithm calculates a key pair {k, Q=k*G=(x,y)}, where
+   k is the private key and Q=(x,y) is the public key.
+
+   Deterministic generation:
+
+        1.   Generate a key pair {k, Q=k*G=(x,y)} with KG
+
+        2.   if( y != min(y,p-y) ) k = Ord - k; y = p - y
+
+        3.   output {k, Q=(x,y)} as a key pair
+
+   The step 2 is not needed for the ECDH keys.
+
+<span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  The key generation algorithm for the sum of points</span>
+
+   In some protocols a participant must produce a point Q, such that Q =
+   S + P. Q is to be shared with other participants.  In this equation S
+   is some known point and P is a point for the key pair {k,
+   P=k*G=(x1,y1)} that the participant generates internally, but never
+   makes available to other participants of the protocol.  The Q must be
+   compliant, while there is no such requirement for P. The following
+   algorithm is a generalization of the previous two algorithms to
+   produce a compliant Q.
+
+   It's easy to observe that the black box algorithm in section
+   <a href="#section-4.2.1">Section 4.2.1</a> is easily adopted to this case.  All that's needed is
+   to continue to generate a new P so that the Q (not P) is compliant.
+
+   A more efficient version of this algorithm that only requires one KG
+   is described next.  This algorithm expects that the participant
+   generates a delta key pair {d, D=d*G} and caches it for a certain
+   period of time to ammortize the cost of generation of {d, D}.  For
+   example, {d, D} might be generated once during the process start-up
+   and is kept in memory until the process is terminated.  This allows
+   the same {d, D} to be used with many protocol runs.  In this case the
+   formula is Q = S + (P + t*D), which means that the P is adjusted with
+   t additions of D until the point Q is a compliant point.  The
+   expected value of t is 1.
+
+   Before the first protocol run:
+
+        1.   Obtain the point S
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 7]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-8" id="page-8" href="#page-8" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+        2.   Generate a delta key pair {d, D=d*G} with KG; save it so it
+             can be used in subsequent protocol runs
+
+   Generation:
+
+        1.   Generate an internal key pair {k, P=k*G=(x1,y1)} with KG
+
+        2.   Calculate Q=(x,y)=P+S
+
+        3.   Until ( y == min(y,p-y) ) do {Q += D; k += d;}
+
+        4.   Output {k, P}, Q=(x,y), where Q is a compliant point and
+             {k, P} is a corresponding to Q internal key pair
+
+<span class="h4"><a class="selflink" name="section-4.2.4" href="#section-4.2.4">4.2.4</a>.  The key generation algorithm for the multiples</span>
+
+   In some protocols a participant must produce a point Q, such that Q =
+   k1*k2*...*kn*P. Q is to be shared with other participants.  In this
+   equation P is a point for the key pair {k, P=k*G} that the
+   participant generates internally, but never makes available to other
+   participants of the protocol.  The Q must be compliant, while there
+   is no such requirement for P.
+
+   It's easy to observe that the black box algorithm in section
+   <a href="#section-4.2.1">Section 4.2.1</a> is easily adopted to this case.  All that's needed is
+   to continue to generate a new P so that the Q (not P) is compliant.
+
+   However, there is a deterministic algorithm with a single KG, based
+   on the algorithm in section <a href="#section-4.2.2">Section 4.2.2</a>.  Q can be rewritten as Q =
+   k1*k2*...*kn*k*G = k*(k1*k2*...*kn)G = k * S. The algorithm in
+   section <a href="#section-4.2.2">Section 4.2.2</a> is used as is, except the G is replaced with S,
+   so that Q=k*G is interpreted as Q=k*S.
+
+<span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  The efficient square root algorithm for p=4*k+3</span>
+
+   When p mod 4 = 3, as is the case of [<a href="#ref-SuiteB" title="&quot;NSA Suite B Cryptography&quot;">SuiteB</a>] and the Brainpool curves
+   [<a href="./rfc5639" title="&quot;Elliptic Curve Cryptography (ECC) Brainpool Standard Curves and Curve Generation&quot;">RFC5639</a>], there is an efficient square root algorithm to recover the
+   y, as follows:
+
+      Given the compact representation of Q as x,
+
+      y2 = C(x)
+
+      y' = y2^((p+1)/4)
+
+      y = min(y',p-y')
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 8]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-9" id="page-9" href="#page-9" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+      Q=(x,y) is the canonical representation of the point
+
+   See [<a href="#ref-Lehmer" title="&quot;Computer technology applied to the theory of numbers&quot;">Lehmer</a>] for details.
+
+<span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  General applicability</span>
+
+   The method described in this document should work for any elliptic
+   curve over the prime fields provided that the canonical repsentation
+   of the point is in affine coordinates.  For the given x there are two
+   solutions to the equation y^2 = C(x); the method described here
+   selects the smallest y; this corresponds to the private keys k or
+   Ord-k.
+
+   The extension of the method described above is straightforward.  Note
+   that the fundamental technique described above relies on the
+   relationship between {k,Ord-k} and {Q, -Q}. -Q refers to the explicit
+   affine negation formula.  The transition between Q, -Q and k, Ord-k
+   is exceptionally fast.  In general, the appropriate affine point
+   negation formula changes the coordinate that we will omit in the
+   compact representation (this is typically the y coordinate).  The
+   code that recovers the omitted coordinate assumes that it is the
+   smallest possible coordinate y, such that y^2 = C(x).  This
+   assumption is assured by the selection of the corresponding {k,
+   Ord-k}.  This will be clear from the following examples.
+
+   Many definitions of elliptic curve are known and the list may keep
+   keep growing.  [<a href="#ref-EFD" title="&quot;Genus-1 curves over large- characteristic fields&quot;">EFD</a>] specifies the affine point negation formula for
+   various curves.  Here are a few possibilities for -Q, where Q =
+   (x,y):
+
+   Formula   Method                                       Synopsis
+   --------- -------------------------------------------- --------------
+   (x,-y)    Use step-by-step instructions in this        y=min(y,p-y)
+             specification
+   (-x,y)    Edwards curves. Given that the curve         x=min(x,p-x);
+             definition is symmetric for x and y, rename  y is compact
+             x and y in the description of the above      representation
+             methods
+   (y,x)     This specification, except change the        y = min(x,y)
+             formula for negation to "exchange x with y"
+   (x/y,1/y) This specification, except change the        y =
+             formula for negation to use division by y    min(y,1/y),
+                                                          x=x/y
+
+                          Affine negation methods
+
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014               [Page 9]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-10" id="page-10" href="#page-10" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Interoperability considerations</span>
+
+   The compact representation described in this document allows two-
+   phase introduction.
+
+   First, key pairs must be generated as defined in <a href="#section-4.2">Section 4.2</a> to allow
+   compact representation.  No accompanied changes are needed elsewhere
+   to use these keys.  This allows safe deployment of the new key
+   generation, which, in turn, allows encoding and decoding of compact
+   representation, possibly at a later time.
+
+   Finally, the encoding of public keys in the new compact
+   representation format can be enabled after there is confidence in the
+   universal support of new compact representation.  This event would
+   not need to change any private key material, only public key
+   representation.
+
+   The above two phases can be implemented at once for new formats.
+
+   Most ECC cryptographic protocols, such as ECDSA [<a href="#ref-FIPS-186" title="&quot;Digital Signature Standard (DSS)&quot;">FIPS-186</a>], are
+   intended to work with persistently stored public keys that are
+   generated as fresh key pairs, as opposed to some derivation function
+   that transforms an ECC point.  The algorithm described in <a href="#section-4.2">Section 4.2</a>
+   is possible in all these cases.  Furthermore, a typical instantiation
+   of the ECDH protocol, such as ECDH specified in [<a href="#ref-NIST-SP800-56A" title="&quot;Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography&quot;">NIST-SP800-56A</a>],
+   makes any ECC key used in a DH key key agreement automatically
+   compliant for the purpose of this specification ( as noted in the
+   <a href="#section-4.2">Section 4.2</a> ).  The algorithm in <a href="#section-4.2">Section 4.2</a> will even work for
+   secure devices that never reveal the private key, such as smartcards
+   or Hardware Security Modules.  A public key that is generated
+   according to the <a href="#section-4.2">Section 4.2</a> can be used without limitations in
+   existing protocols that use ECC points encoded in other ways, such as
+   [<a href="#ref-SEC1">SEC1</a>], with compression or not, with the added advantage that the
+   keys generated according to the method in <a href="#section-4.2">Section 4.2</a> will allow the
+   <a href="#section-4.1">Section 4.1</a> encoding.
+
+
+<span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Acknowledgements</span>
+
+   The methods described in this document eliminates one bit that is
+   tranditionally needed to identify either of the two y coordinates.
+   [<a href="#ref-FPE" title="&quot;Ciphers with arbitrary finite domains.&quot;">FPE</a>] is the earliest reference about such an approach to compact
+   representation in the prime underlying finite field that the author
+   is aware of, viewed in that work in the context of the format
+   preserving encryption.
+
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014              [Page 10]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-11" id="page-11" href="#page-11" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+<span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  IANA Considerations</span>
+
+   This document defines a low-level format that may be suitable for a
+   wide range of applications.  However, it is responsibility of the
+   application that adopts this format to define the IDs that will
+   enable the ECC compact point representation in that application.
+
+   A new ID may not be always necessary.  For example, an application
+   that currently allows the [<a href="#ref-SEC1">SEC1</a>] encoding may allow the compact
+   representation defined in this document as an extension to the [<a href="#ref-SEC1">SEC1</a>]
+   as follows.  Consider the encoding of a compressed [<a href="#ref-FIPS-186" title="&quot;Digital Signature Standard (DSS)&quot;">FIPS-186</a>] P-256
+   point, for example.  The [<a href="#ref-SEC1">SEC1</a>] compressed representation of a P-256
+   point will always occupy exactly 33 bytes.  On the other hand, the
+   compact representation defined in this document will never exceed 32
+   bytes (it may occupy fewer that 32 bytes when the most significant
+   byte has happened to be zero).  This size will allow reliable
+   discrimination between two encoding formats.
+
+
+<span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Security Considerations</span>
+
+   The key pair generation process in <a href="#section-4.2">Section 4.2</a> excludes exactly half
+   of the points on the elliptic curve.  What is left is the subset of
+   points suitable for compact representation.  The filtering of points
+   is based on a public criteria that are applied to the public output
+   of the ECC one-way function.
+
+   The set of Ord points on the elliptic curve can be subdivided as
+   follows.  First, remove the point O, which leaves Ord-1 points.  Of
+   these points there are exactly (Ord-1)/2 points that have unique x
+   coordinate.  This document specifies a method to form the (Ord-1)/2
+   of points, each having a unique x coordinate.  These points are
+   called compliant public keys in <a href="#section-4.2">Section 4.2</a>.
+
+   For any two public keys P=(x,y) and P=(x,y') there is up to one bit
+   of entropy in y' v.s. y and this information is public.  This bit of
+   entropy doesn't contribute to the difficulty of the underlying hard
+   problem of the ECC: the elliptic curve discrete logarithm problem
+   (ECDLP).
+
+   It will be shown next that breaking the ECDLP with a key generated
+   according to <a href="#section-4.2">Section 4.2</a> is not easier than breaking the ECDLP with a
+   key obtained through a standard key generation algorithm, referred to
+   as the KG algorithm in the <a href="#section-4.2">Section 4.2</a>.
+
+   Let us assume that there is an algorithm A that solves the ECDLP for
+   the KG.  The algorithm A can be transformed into the algorithm A' as
+   follows.
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014              [Page 11]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-12" id="page-12" href="#page-12" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+   o  If P=(x,y) is a compliant public key, the ECDLP is solved with A
+      for the point (x,y): the result is k, such that k*G=(x,y)
+
+   o  If P=(x,y) is not a compliant public key, the ECDLP is solved with
+      A for the point (x,p-y); assuming the output produced by A is k,
+      the output produced by A' is set to (Ord-k).  Note that (Ord-k)*G
+      = (x,y), which means that the output of A' is the correct
+      solution.
+
+   A' is equivalent to A. The complexity of one additional substraction
+   in the prime field is negligible even to the complexity of a single
+   elliptic curve addition.  Observe that A' works for all public keys
+   by performing the actual work only on compliant public keys.
+
+   If we now consider only the compliant public keys, which cuts the
+   number of points in half, we observe that the ECDLP solving algorithm
+   A' doesn't get to break fewer public keys.  This concludes the proof.
+
+   The same result can be observed based on the details of the current
+   state of the art attacks on the ECDLP.  These attacks use Pollard's
+   rho algorithm, which uses the collision search in the sequence(s) of
+   generated points with the goal to produce the points P1=(x1,y1) and
+   P2=(x2,y2), such that x1=x2 and y1=y2.  The match in the x coordinate
+   is the sufficient event for the successful attack.  After this event
+   has occurred, the sequence(s) that led to x1=x2 collision can be
+   adjusted in a constant number of steps to ensure that y1=y2, if this
+   is not already the case.  Furthermore, collision search requires the
+   storage of candidates for the collision.  It's wasteful to store
+   (x,y) v.s. storing x and only calculating y when the collision in x
+   is detected.  Thus, the ECDLP attack does not benefit from the
+   unpredictability of the y.
+
+   Finally, note that a common design feature of an ECDH-based system is
+   not to depend on the y coordinate, such as the one defined in the
+   [<a href="#ref-NIST-SP800-56A" title="&quot;Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography&quot;">NIST-SP800-56A</a>].  Thus, the security of the system is unaffected if
+   we fix either of the two possibilities for the point with the given x
+   coordinate.
+
+
+<span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  References</span>
+
+<span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  Normative References</span>
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", <a href="./bcp14">BCP 14</a>, <a href="./rfc2119">RFC 2119</a>, March 1997.
+
+
+
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014              [Page 12]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+<span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Informative References</span>
+
+   [<a name="ref-EFD" id="ref-EFD">EFD</a>]      Bernstein, D. and T. Lange, "Genus-1 curves over large-
+              characteristic fields", 2014,
+              &lt;<a href="http://www.hyperelliptic.org/EFD/index.html">http://www.hyperelliptic.org/EFD/index.html</a>&gt;.
+
+   [<a name="ref-FIPS-186" id="ref-FIPS-186">FIPS-186</a>]
+              National Institute of Standards and Technology, "Digital
+              Signature Standard (DSS)", FIPS 186-3, June 2009,
+              &lt;<a href="http://csrc.nist.gov/publications/PubsSPs.html">http://csrc.nist.gov/publications/PubsSPs.html</a>&gt;.
+
+   [<a name="ref-FPE" id="ref-FPE">FPE</a>]      Rogaway, P. and J. Black, "Ciphers with arbitrary finite
+              domains.", Proceedings Topics in Cryptology CT-RSA.
+              Springer Berlin Heidelberg, 2002,
+              &lt;<a href="http://www.cs.ucdavis.edu/~rogaway/papers/subset.pdf">http://www.cs.ucdavis.edu/~rogaway/papers/subset.pdf</a>&gt;.
+
+   [<a name="ref-Lehmer" id="ref-Lehmer">Lehmer</a>]   Lehmer, D., "Computer technology applied to the theory of
+              numbers", 1969.
+
+   [<a name="ref-Miller" id="ref-Miller">Miller</a>]   Miller, V., "Use of elliptic curves in cryptography",
+              Proceedings Lecture notes in computer sciences; 218 on
+              Advances in cryptology -- CRYPTO 85, June 1986.
+
+   [<a name="ref-NIST-SP800-133" id="ref-NIST-SP800-133">NIST-SP800-133</a>]
+              National Institute of Standards and Technology,
+              "Recommendation for Cryptographic Key Generation", SP 800-
+              133, November 2012,
+              &lt;<a href="http://csrc.nist.gov/publications/PubsSPs.html">http://csrc.nist.gov/publications/PubsSPs.html</a>&gt;.
+
+   [<a name="ref-NIST-SP800-56A" id="ref-NIST-SP800-56A">NIST-SP800-56A</a>]
+              National Institute of Standards and Technology,
+              "Recommendation for Pair-Wise Key Establishment Schemes
+              Using Discrete Logarithm Cryptography", SP 800-56A
+              Revision 1, March 2007,
+              &lt;<a href="http://csrc.nist.gov/publications/PubsSPs.html">http://csrc.nist.gov/publications/PubsSPs.html</a>&gt;.
+
+   [<a name="ref-OpenSSL" id="ref-OpenSSL">OpenSSL</a>]  Jivsov, A., "An enhancement to EC key generation to enable
+              compact point representation", June 2013,
+              &lt;<a href="http://rt.openssl.org/Ticket/History.html?id=3069">http://rt.openssl.org/Ticket/History.html?id=3069</a>&gt;.
+
+   [<a name="ref-RFC5639" id="ref-RFC5639">RFC5639</a>]  Lochter, M. and J. Merkle, "Elliptic Curve Cryptography
+              (ECC) Brainpool Standard Curves and Curve Generation",
+              <a href="./rfc5639">RFC 5639</a>, March 2010.
+
+   [<a name="ref-RFC6090" id="ref-RFC6090">RFC6090</a>]  McGrew, D., Igoe, K., and M. Salter, "Fundamental Elliptic
+              Curve Cryptography Algorithms", <a href="./rfc6090">RFC 6090</a>, February 2011.
+
+   [<a name="ref-SEC1" id="ref-SEC1">SEC1</a>]     STANDARDS FOR EFFICIENT CRYPTOGRAPHY, "SEC 1: Elliptic
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014              [Page 13]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+              Curve Cryptography", September 2000, &lt;www.secg.org/
+              collateral/sec1_final.pdf&gt;.
+
+   [<a name="ref-SuiteB" id="ref-SuiteB">SuiteB</a>]   National Security Agency, "NSA Suite B Cryptography",
+              March 2010,
+              &lt;<a href="http://www.nsa.gov/ia/programs/suiteb_cryptography/">http://www.nsa.gov/ia/programs/suiteb_cryptography/</a>&gt;.
+
+
+<span class="h2"><a class="selflink" name="appendix-A" href="#appendix-A">Appendix A</a>.  Sample code change to add compliant key generation to</span>
+             libgcrypt and openssl
+
+   The complete changes that were needed to make libgcrypt library
+   generate a compliant key are shown inline in this section, followed
+   by pending changes to OpenSSL.
+
+<span class="h3"><a class="selflink" name="appendix-A.1" href="#appendix-A.1">A.1</a>.  libgcrypt changes</span>
+
+   In the following changes, the Q is the initial public key, G
+   generator, and d is the corresponding private key. "-" prefix marks
+   the two lines that were replaced with the lines starting with "+".
+   Lines starting with "+" represent the code that adds compliant key
+   generation to libgcrypt.
+
+   @@ generate_key (ECC_secret_key *sk,
+        unsigned int nbits,
+        const char *name,
+      point_set (&amp;sk-&gt;E.G, &amp;E.G);
+      sk-&gt;E.n = mpi_copy (E.n);
+      point_init (&amp;sk-&gt;Q);
+   -  point_set (&amp;sk-&gt;Q, &amp;Q);
+   -  sk-&gt;d    = mpi_copy (d);
+   +
+   +  /* We want the Q=(x,y) be a "compliant key" in terms of the
+   +   * <a href="http://tools.ietf.org/html/draft-jivsov-ecc-compact">http://tools.ietf.org/html/draft-jivsov-ecc-compact</a>,
+   +   * which simply means that we choose either Q=(x,y) or -Q=(x,p-y)
+   +   * such that we end up with the min(y,p-y) as the y coordinate.
+   +   * Such a public key allows the most efficient compression: y can
+   +   * simply be dropped because we know that it's a minimum of
+   +   * the two possibilities without any loss of security.
+   +   */
+   +  {
+   +    gcry_mpi_t x, p_y, y;
+   +    const unsigned int nbits = mpi_get_nbits (E.p);
+   +
+   +    x = mpi_new (nbits);
+   +    p_y = mpi_new (nbits);
+   +    y = mpi_new (nbits);
+   +
+
+
+
+<span class="grey">Jivsov                 Expires September 16, 2014              [Page 14]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
+<span class="grey">Internet-Draft    Compact representation of an EC point       March 2014</span>
+
+
+   +    if (_gcry_mpi_ec_get_affine (x, y, &amp;Q, ctx))
+   +      log_fatal ("ecgen: Failed to get affine coordinates for Q\n");
+   +
+   +    mpi_sub( p_y, E.p, y );  /* p_y = p-y */
+   +
+   +    if( mpi_cmp( p_y /*p-y*/, y ) &lt; 0 )  {  /* is p-y &lt; p ? */
+   +      gcry_mpi_t z = mpi_copy( mpi_const (MPI_C_ONE) );
+   +      /* we need to end up with -Q; this assures that new Q's y
+   +       * is the smallest one */
+   +      sk-&gt;d = mpi_new (nbits);
+   +      mpi_sub( sk-&gt;d, E.n, d );  /* d = order-d */
+   +      /* log_mpidump ("ecgen d after ", sk-&gt;d); */
+   +      gcry_mpi_point_set (&amp;sk-&gt;Q, x, p_y/*p-y*/, z);  /* Q = -Q */
+   +      if (DBG_CIPHER)
+   +      {
+   +        log_debug   ("ecgen converted Q to a compliant point\n");
+   +      }
+   +      mpi_free (z);
+   +    }
+   +    else
+   +    {
+   +      /* no change is needed exactly 50% of the time: just copy */
+   +      sk-&gt;d = mpi_copy (d);
+   +      point_set (&amp;sk-&gt;Q, &amp;Q);
+   +      if (DBG_CIPHER)
+   +      {
+   +        log_debug   ("ecgen didn't need to convert Q to "
+   +                     "a compliant point\n");
+   +      }
+   +    }
+   +    mpi_free (x);
+   +    mpi_free (p_y);
+   +    mpi_free (y);
+   +  }
+
+<span class="h3"><a class="selflink" name="appendix-A.2" href="#appendix-A.2">A.2</a>.  OpenSSL changes</span>
+
+   OpenSSL changes are even more compact than in <a href="#appendix-A.1">Appendix A.1</a>.  They are
+   tracked at [<a href="#ref-OpenSSL" title="&quot;An enhancement to EC key generation to enable compact point representation&quot;">OpenSSL</a>].
+
+
+Author's Address
+
+   Andrey Jivsov
+   Symantec Corporation
+
+   Email: crypto@brainhub.org
+
+
+
+
+Jivsov                 Expires September 16, 2014              [Page 15]
+
+</pre><br />
+    <span class="noprint"><small><small>Html markup produced by rfcmarkup 1.128b, available from
+      <a href="https://tools.ietf.org/tools/rfcmarkup/">https://tools.ietf.org/tools/rfcmarkup/</a>
+    </small></small></span>
+  </div>
+</body>
+</html>
