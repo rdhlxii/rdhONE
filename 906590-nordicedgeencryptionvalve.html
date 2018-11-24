@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html;charset=UTF-8' http-equiv='Content-Type'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<title>NordicEdgeEncryptionValve | PhenixID server 2.6 Valves | PhenixID Documentation</title>
+<meta name='description'>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="at3/Lgki9Q++Nm2u3zXdAMpdu24ewKdQ9QyKHCaKOMoH66pcMyv2D8wamrwWLNr/iimshoIL09E49XCDE1IIBg==" />
+<link rel="stylesheet" media="screen" href="//assets.screensteps.com/assets/themes/fonts/helvetica-e03d9e53b962f0a4e2fed42a4a318c29cf029d37f80397baaf14722853359e6a.css" />
+<link rel="stylesheet" href="//assets.screensteps.com/assets/themes/alpha-f839f25fbfae8e13da27a205c1bde2b0d21876a6481c9c43dfcacdd99aa86b55.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<style type="text/css" media="all">
+  /* headings */
+  h1,
+  h1.toc-heading,
+  h2.toc-heading {
+    color: #;
+  }
+
+  h2.toc-subheading,
+  h3.toc-subheading,
+  h4.toc-subheading,
+  h5.toc-subheading,
+  h6.toc-subheading {
+    color: #;
+  }
+
+  .screensteps-training-site [data-count-bubble]::after {
+    background-color: #;
+  }
+
+  .screensteps-article-content h2 {
+    color: #;
+  }
+
+  .screensteps-article-content h3,
+  .screensteps-article-content h4,
+  .screensteps-article-content h5,
+  .screensteps-article-content h6 {
+    color: #;
+  }
+
+  .screensteps-sidebar h3 {
+    color: #;
+  }
+
+  .sidebar-subheading {
+    color: #;
+  }
+
+  .comments-heading {
+    color: #;
+  }
+
+  /* base/_buttons */
+  input[type="button"],
+  input[type="reset"],
+  input[type="submit"],
+  button,
+  .screensteps-bg-action-color,
+  .screensteps-courses .screensteps-progress-bar::before,
+  .screensteps-courses .screensteps-courses-menu a:hover,
+  .screensteps-courses .screensteps-courses-menu .step-active a::before,
+  .screensteps-training-site .asset-item__progress-bar {
+    background-color: #477dca;
+  }
+
+  input[type="button"]:hover,
+  input[type="reset"]:hover,
+  input[type="submit"]:hover,
+  button:hover,
+  button.screensteps-bg-action-color:hover,
+  a.screensteps-bg-action-color:hover {
+    background-color: #3061a7;
+  }
+
+  /* base/_forms */
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="password"]:focus,
+  input[type="search"]:focus,
+  input[type="tel"]:focus,
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  input[type="color"]:focus,
+  input[type="date"]:focus,
+  input[type="datetime"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="month"]:focus,
+  input[type="time"]:focus,
+  input[type="week"]:focus,
+  select[multiple=multiple]:focus,
+  textarea:focus {
+    border-color: #477dca;
+  }
+
+
+  .screensteps-training-site .screensteps-main-search .search-field:not(:placeholder-shown) {
+    box-shadow: 0 0 0 2px #23303d;
+  }
+
+  /* base/_typography */
+  body {
+    background-color: #23303d;
+    color: #;
+  }
+
+  a {
+    color: #477dca;
+  }
+
+
+
+  /* _screensteps-container */
+  .screensteps-container a:visited {
+    color: #3061a7;
+  }
+ .screensteps-container a:active,
+ .screensteps-container a:focus,
+ .screensteps-container a:hover {
+    color: #3061a7;
+  }
+
+  /* _screensteps-manual-contents */
+  .screensteps-manual-contents h2 a {
+    color: #477dca;
+  }
+  /* _screensteps-foldable-sections */
+  .screensteps-main-content .embedded-chapter-article > * {
+    color: #477dca;
+  }
+
+  /* screensteps-header */
+  .screensteps-branding h1,
+  .screensteps-header .screensteps-branding a,
+  .screensteps-training-site .screensteps-profile-subnav-toggle {
+    color: #3061a7;
+  }
+
+  .screensteps-header .screensteps-branding a:hover {
+    color: #2e3340;
+  }
+
+  /* meta data text */
+  .chapter-count,
+  .screensteps-comment-count,
+  .screensteps-lesson-details,
+  .nested-chapter-lessons .here a:after,
+  .screensteps-single-comment time {
+    color: #;
+  }
+
+  /* course tiles */
+  .screensteps-training-site .screensteps-group .asset-list--course a {
+    background-color: #;
+    color: #;
+  }
+
+  .screensteps-training-site .asset-item__progress-bar {
+    background-color: #;
+  }
+
+  .screensteps-training-site .screensteps-group .asset-list--course a:hover {
+    background-color: #;
+  }
+</style>
+
+<link rel='icon'>
+<script src="//assets.screensteps.com/assets/application-f2e12e2bc25cfc654c39b0f34e3a5d574dbe2ed979b0d1e88e17e94aac9c12db.js"></script>
+<script src="//assets.screensteps.com/assets/vendor/jquery.fitvids-55172bb72e1e399cda77fc1539e7116ec4e27e26d96aa337b25ca4300489829c.js"></script>
+<script src="//assets.screensteps.com/assets/theme-47901aeb89b11079b5097741e7d83a171fc3df41c3ca9ea52c803e6b57fa3de5.js"></script>
+<!--[if lt IE 9]>
+<script src="//assets.screensteps.com/assets/vendor/html5shiv.min-5f363538a5170f44944c530d6a941f6431d97d17793e1c3bb8717b9592f627e9.js"></script>
+<![endif]-->
+<script src="//www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+
+<style media=''>.screensteps-header {
+	padding: 0 1.5em 2em;
+  padding: 0 60px;
+  background: white;
+}
+.screensteps-branding h1, .screensteps-external-nav a, .screensteps-profile-nav a {
+	color: #55646f;
+}
+.screensteps-header .screensteps-site-logo {
+  //width: 200px;
+  //height: 52px;
+  width: 40px;
+   height: auto;
+  margin-top: 20px;
+}
+.helvetica-header h1, .helvetica-header h2, .helvetica-header h3, .helvetica-header h4, .helvetica-header h5, .helvetica-header h6 {
+    font-family: 'Lato', "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+}
+.helvetica-header h1 {
+  	font-family: 'Lato', "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 100;
+}
+body {
+  font-family: 'Lato', "Open Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+  //background-image: url(http://www.phenixid.se/wp-content/uploads/2016/07/footer-image.png);
+}
+h2 {
+	letter-spacing: inherit;
+}
+
+table, td, th {
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 15px;
+}</style>
+<script></script>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+
+</head>
+<body class='helvetica-body helvetica-header site-article  no-focus-outline' data-content-template='2015' data-generating-pdf-text='Generating PDF...'>
+<div class='screensteps-admin-navigation'>
+<div data-logged-in-check-url='https://phenixid.screenstepslive.com/s/13478/user_nav' id='screensteps-admin-bar'>
+<ul>
+<li><a target="_blank" href="https://phenixid.screenstepslive.com/admin/v2/sites/13478/manuals/78754/chapters/253618/articles/906590">View in admin portal</a></li>
+<li><a target="_blank" href="https://phenixid.screenstepslive.com/admin/v2/article-editor/906590">Edit content on web</a></li>
+<li><a href="screensteps://phenixid.screenstepslive.com/open/s/13478/m/78754/a/906590?checkout=1">Edit in desktop</a></li>
+</ul>
+</div>
+
+</div>
+<header class='screensteps-header' role='banner'>
+<a class='skip-navigation--link' href='#screensteps-main-content' id='skip-navigation'>
+Skip to main content
+</a>
+
+<div class='screensteps-branding'>
+<div class='logo-wrapper'>
+<span class='company-logo'>
+<a href='/' title='PhenixID Documentation'>
+<img alt="phenixid" class="screensteps-site-logo" src="https://s3.amazonaws.com/screensteps_live/logos/6035/logo.png?1478263203" />
+</a>
+</span>
+</div>
+<ul class='screensteps-external-nav' role='navigation'>
+<li><a href="https://phenixid.screenstepslive.com/s/19332">Older version</a></li>
+</ul>
+<ul class='screensteps-profile-nav' role='navigation'>
+
+</ul>
+</div>
+</header>
+
+<div class='screensteps-container-wrapper'>
+<main class='screensteps-container'>
+<div class='screensteps-site-title-wrapper'>
+<h1 class='screensteps-site-title toc-heading'>PhenixID Documentation</h1>
+</div>
+<div class='screensteps-main-search' role='search'>
+<form id="screensteps-search-form" action="/searches" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+<div class='screensteps-search-form'>
+<label for="text">Search term</label>
+<input type="text" name="text" id="text" class="search-field" title="Enter a keyword or topic to search" />
+
+<input type="submit" name="commit" value="Search" class="search-submit" />
+</div>
+</form>
+
+
+</div>
+<div class='left-sidebar lesson manual-lesson screensteps-content-wrapper'>
+<div class='screensteps-main-content' role='main'>
+<header class='screensteps-title'>
+<div id="screensteps-breadcrumb" aria-label="breadcrumb" aria-level="3"><a href="/">PhenixID Documentation</a><span class='manual-group-breadcrumb'><a href="/#Documents">Documents</a></span><a href="/m/78754">PhenixID server 2.6 Valves</a> <span class='chapter-breadcrumb'><a href="/m/78754/c/253618">Crypto</a></span>NordicEdgeEncryptionValve</div>
+</header>
+<div id='screensteps-main-content'>
+<div class='screensteps-article'>
+<div class='screensteps-article-content' data-article-id='906590'>
+<h1 class='lesson'>NordicEdgeEncryptionValve</h1>
+<div class='screensteps-steps'>
+<div class='instructions screensteps-textblock screensteps-wrapper screensteps-wrapper--introduction'>
+<p>Contact PhenixID support for help with configuration of this valve.</p>
+</div>
+
+<div class='step step-depth-1' data-step-uuid='b702043d-761b-4962-a577-e48cbb406dba' id=''>
+<h2 id="requirements"><a class="screensteps-anchor" tabindex="-1" aria-hidden="true" aria-label="Anchor for Requirements" href="#requirements"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 20 20" enable-background="new 0 0 20 20" aria-label="Heading anchor"><path d="M7.859 14.691l-.81.805c-.701.695-1.843.695-2.545 0-.336-.334-.521-.779-.521-1.252s.186-.916.521-1.252l2.98-2.955c.617-.613 1.779-1.515 2.626-.675.389.386 1.016.384 1.403-.005.385-.389.383-1.017-.006-1.402-1.438-1.428-3.566-1.164-5.419.675l-2.98 2.956c-.715.709-1.108 1.654-1.108 2.658 0 1.006.394 1.949 1.108 2.658.736.73 1.702 1.096 2.669 1.096.967 0 1.934-.365 2.669-1.096l.811-.805c.389-.385.391-1.012.005-1.4-.387-.388-1.014-.39-1.403-.006zm9.032-11.484c-1.547-1.534-3.709-1.617-5.139-.197l-1.009 1.002c-.389.386-.392 1.013-.006 1.401.386.389 1.013.391 1.402.005l1.01-1.001c.74-.736 1.711-.431 2.346.197.336.335.522.779.522 1.252s-.186.917-.522 1.251l-3.18 3.154c-1.454 1.441-2.136.766-2.427.477-.389-.386-1.016-.383-1.401.005-.386.389-.384 1.017.005 1.401.668.662 1.43.99 2.228.99.977 0 2.01-.492 2.993-1.467l3.18-3.153c.712-.71 1.107-1.654 1.107-2.658 0-1.005-.395-1.949-1.109-2.659z"></path></svg>
+</a>Requirements</h2>
+<div class='instructions screensteps-textblock'>
+<p>Item set must have at least one entry.</p>
+</div>
+
+
+</div>
+
+
+</div>
+</div>
+
+
+<div class='screensteps-next-prev-navigation'>
+<ul>
+<li class='previous'>
+<strong>Prev</strong>: <a href="/m/78754/l/906588-legacyaesdecryptionvalve">LegacyAESDecryptionValve</a>
+</li>
+<li class='next'>
+<strong>Next</strong>: <a href="/m/78754/l/906592-nordicedgedecryptionvalve">NordicEdgeDecryptionValve</a>
+</li>
+</ul>
+</div>
+
+
+</div>
+
+</div>
+</div>
+<div aria-label='sidebar' class='screensteps-sidebar' role='complementary'>
+<div class='screensteps-sidebar-widget' id='sidebar-chapters'>
+<h3>Topics</h3>
+<ul id='sidebar-chapter-list'>
+<li class='chapter-list-item' data-section-id='253612'>
+<a class='toggle-lessons' href='/m/78754/c/253612' role='button'>
+<span class='chapter-link sidebar-subheading'>About</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906574'><a href="/m/78754/l/906574-valves">Valves</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253613'>
+<a class='toggle-lessons' href='/m/78754/c/253613' role='button'>
+<span class='chapter-link sidebar-subheading'>AD</span>
+<span class='chapter-count'>
+&nbsp;5
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906576'><a href="/m/78754/l/906576-adpasswordformatvalve">ADPasswordFormatValve</a></li>
+<li data-lesson-id='906578'><a href="/m/78754/l/906578-adremovedomainvalve">ADRemoveDomainValve</a></li>
+<li data-lesson-id='906579'><a href="/m/78754/l/906579-propertysidbinarytostringvalve">PropertySIDBinaryToStringValve</a></li>
+<li data-lesson-id='906582'><a href="/m/78754/l/906582-adpasswordchangevalve">ADPasswordChangeValve</a></li>
+<li data-lesson-id='961717'><a href="/m/78754/l/961717-propertyguidbinarytostringvalve">PropertyGUIDBinaryToStringValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253616'>
+<a class='toggle-lessons' href='/m/78754/c/253616' role='button'>
+<span class='chapter-link sidebar-subheading'>Authenticate</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906584'><a href="/m/78754/l/906584-bankidauthenticatevalve">BankIDAuthenticateValve</a></li>
+<li data-lesson-id='906586'><a href="/m/78754/l/906586-bankidcollectauthenticationstatusvalve">BankIDCollectAuthenticationStatusValve </a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253618'>
+<a class='toggle-lessons' href='/m/78754/c/253618' role='button'>
+<span class='chapter-link sidebar-subheading'>Crypto</span>
+<span class='chapter-count'>
+&nbsp;3
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906588'><a href="/m/78754/l/906588-legacyaesdecryptionvalve">LegacyAESDecryptionValve</a></li>
+<li data-lesson-id='906590'><a href="/m/78754/l/906590-nordicedgeencryptionvalve">NordicEdgeEncryptionValve</a></li>
+<li data-lesson-id='906592'><a href="/m/78754/l/906592-nordicedgedecryptionvalve">NordicEdgeDecryptionValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253619'>
+<a class='toggle-lessons' href='/m/78754/c/253619' role='button'>
+<span class='chapter-link sidebar-subheading'>Date</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906593'><a href="/m/78754/l/906593-datetimevalidatorvalve">DateTimeValidatorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253621'>
+<a class='toggle-lessons' href='/m/78754/c/253621' role='button'>
+<span class='chapter-link sidebar-subheading'>Debug</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906595'><a href="/m/78754/l/906595-dumpattributesvalve">DumpAttributesValve</a></li>
+<li data-lesson-id='906597'><a href="/m/78754/l/906597-dumpitemsvalve">DumpItemsValve</a></li>
+<li data-lesson-id='906599'><a href="/m/78754/l/906599-dumprequestvalve">DumpRequestValve</a></li>
+<li data-lesson-id='906601'><a href="/m/78754/l/906601-sleepvalve">SleepValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253625'>
+<a class='toggle-lessons' href='/m/78754/c/253625' role='button'>
+<span class='chapter-link sidebar-subheading'>Delivery</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906603'><a href="/m/78754/l/906603-smsvalve">SMSValve</a></li>
+<li data-lesson-id='906605'><a href="/m/78754/l/906605-smtpvalve">SMTPValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253626'>
+<a class='toggle-lessons' href='/m/78754/c/253626' role='button'>
+<span class='chapter-link sidebar-subheading'>Event</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='937578'><a href="/m/78754/l/937578-eventvalve">EventValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253627'>
+<a class='toggle-lessons' href='/m/78754/c/253627' role='button'>
+<span class='chapter-link sidebar-subheading'>Extension</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906609'><a href="/m/78754/l/906609-navetlookupvalve">NavetLookupValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253628'>
+<a class='toggle-lessons' href='/m/78754/c/253628' role='button'>
+<span class='chapter-link sidebar-subheading'>File</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906610'><a href="/m/78754/l/906610-csvfileimportvalve">CSVFileImportValve</a></li>
+<li data-lesson-id='906612'><a href="/m/78754/l/906612-csvfileexportvalve">CSVFileExportValve</a></li>
+<li data-lesson-id='906614'><a href="/m/78754/l/906614-filereadvalve">FileReadValve</a></li>
+<li data-lesson-id='906616'><a href="/m/78754/l/906616-filewritevalve">FileWriteValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253632'>
+<a class='toggle-lessons' href='/m/78754/c/253632' role='button'>
+<span class='chapter-link sidebar-subheading'>Flow</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906618'><a href="/m/78754/l/906618-flowfailvalve">FlowFailValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253633'>
+<a class='toggle-lessons' href='/m/78754/c/253633' role='button'>
+<span class='chapter-link sidebar-subheading'>HTTP</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906620'><a href="/m/78754/l/906620-httpgetvalve">HttpGetValve</a></li>
+<li data-lesson-id='906622'><a href="/m/78754/l/906622-httpbasicauthvalve">HttpBasicAuthValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253635'>
+<a class='toggle-lessons' href='/m/78754/c/253635' role='button'>
+<span class='chapter-link sidebar-subheading'>Input</span>
+<span class='chapter-count'>
+&nbsp;3
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906624'><a href="/m/78754/l/906624-inputparameterexistvalidatorvalve">InputParameterExistValidatorValve</a></li>
+<li data-lesson-id='906626'><a href="/m/78754/l/906626-inputparameterhashvalve">InputParameterHashValve</a></li>
+<li data-lesson-id='906628'><a href="/m/78754/l/906628-inputparameterregexvalidatorvalve">InputParameterRegexValidatorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253636'>
+<a class='toggle-lessons' href='/m/78754/c/253636' role='button'>
+<span class='chapter-link sidebar-subheading'>Item</span>
+<span class='chapter-count'>
+&nbsp;6
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906631'><a href="/m/78754/l/906631-itemcreatefromrequestvalve">ItemCreateFromRequestValve</a></li>
+<li data-lesson-id='906633'><a href="/m/78754/l/906633-itemcreatevalve">ItemCreateValve</a></li>
+<li data-lesson-id='906635'><a href="/m/78754/l/906635-itemmergevalve">ItemMergeValve</a></li>
+<li data-lesson-id='906637'><a href="/m/78754/l/906637-itemmatchandmergevalve">ItemMatchAndMergeValve</a></li>
+<li data-lesson-id='906639'><a href="/m/78754/l/906639-itemremovevalve">ItemRemoveValve</a></li>
+<li data-lesson-id='906640'><a href="/m/78754/l/906640-itemrenamevalve">ItemRenameValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253639'>
+<a class='toggle-lessons' href='/m/78754/c/253639' role='button'>
+<span class='chapter-link sidebar-subheading'>JDBC</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906642'><a href="/m/78754/l/906642-statementexecutorvalve">StatementExecutorValve</a></li>
+<li data-lesson-id='906644'><a href="/m/78754/l/906644-preparedstatementexecutorvalve">PreparedStatementExecutorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253641'>
+<a class='toggle-lessons' href='/m/78754/c/253641' role='button'>
+<span class='chapter-link sidebar-subheading'>JWT</span>
+<span class='chapter-count'>
+&nbsp;3
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906646'><a href="/m/78754/l/906646-ottokenverifiervalve">OTTokenVerifierValve</a></li>
+<li data-lesson-id='906648'><a href="/m/78754/l/906648-generatejwttokenvavle">GenerateJWTTokenVavle</a></li>
+<li data-lesson-id='962359'><a href="/m/78754/l/962359-jwttokenparservalve">JWTTokenParserValve </a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253642'>
+<a class='toggle-lessons' href='/m/78754/c/253642' role='button'>
+<span class='chapter-link sidebar-subheading'>LDAP</span>
+<span class='chapter-count'>
+&nbsp;9
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906650'><a href="/m/78754/l/906650-ldapaddvalve">LDAPAddValve</a></li>
+<li data-lesson-id='906652'><a href="/m/78754/l/906652-ldapasyncsearchvalve">LDAPAsyncSearchValve</a></li>
+<li data-lesson-id='906654'><a href="/m/78754/l/906654-ldapbindvalve">LDAPBindValve</a></li>
+<li data-lesson-id='906656'><a href="/m/78754/l/906656-ldapdeletevalve">LDAPDeleteValve</a></li>
+<li data-lesson-id='906658'><a href="/m/78754/l/906658-ldapgroupfiltering">LDAPGroupFiltering</a></li>
+<li data-lesson-id='906660'><a href="/m/78754/l/906660-ldaploadvalve">LDAPLoadValve</a></li>
+<li data-lesson-id='906661'><a href="/m/78754/l/906661-ldapmodifyvalve">LDAPModifyValve</a></li>
+<li data-lesson-id='906663'><a href="/m/78754/l/906663-ldapmovevalve">LDAPMoveValve</a></li>
+<li data-lesson-id='906665'><a href="/m/78754/l/906665-ldapsearchvalve">LDAPSearchValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253646'>
+<a class='toggle-lessons' href='/m/78754/c/253646' role='button'>
+<span class='chapter-link sidebar-subheading'>Notification</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906667'><a href="/m/78754/l/906667-directnotificationvalve">DirectNotificationValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253647'>
+<a class='toggle-lessons' href='/m/78754/c/253647' role='button'>
+<span class='chapter-link sidebar-subheading'>OCSP</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906669'><a href="/m/78754/l/906669-ocspvalidatorvalve">OCSPValidatorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253649'>
+<a class='toggle-lessons' href='/m/78754/c/253649' role='button'>
+<span class='chapter-link sidebar-subheading'>OpenID Connect</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906671'><a href="/m/78754/l/906671-rpbasicauthentictionvalve">RPBasicAuthentictionValve</a></li>
+<li data-lesson-id='906673'><a href="/m/78754/l/906673-oidctokenrequestvalidationvalve">OIDCTokenRequestValidationValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253651'>
+<a class='toggle-lessons' href='/m/78754/c/253651' role='button'>
+<span class='chapter-link sidebar-subheading'>OTP</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906675'><a href="/m/78754/l/906675-otpgeneratorvalve">OTPGeneratorValve</a></li>
+<li data-lesson-id='906677'><a href="/m/78754/l/906677-pinvalidationvalve">PINValidationValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253652'>
+<a class='toggle-lessons' href='/m/78754/c/253652' role='button'>
+<span class='chapter-link sidebar-subheading'>OTP delivery</span>
+<span class='chapter-count'>
+&nbsp;14
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906679'><a href="/m/78754/l/906679-otpbysmsvalve">OTPBySMSValve</a></li>
+<li data-lesson-id='906681'><a href="/m/78754/l/906681-otpbyhttpgetvalve">OTPByHTTPGetValve</a></li>
+<li data-lesson-id='906683'><a href="/m/78754/l/906683-otpbyhttppostvalve">OTPByHTTPPostValve</a></li>
+<li data-lesson-id='906685'><a href="/m/78754/l/906685-otpposthttpvalve">OTPPostHTTPValve</a></li>
+<li data-lesson-id='906687'><a href="/m/78754/l/906687-otpgethttpvalve">OTPGetHTTPValve</a></li>
+<li data-lesson-id='906689'><a href="/m/78754/l/906689-otpbyhttpvalve">OTPByHTTPValve</a></li>
+<li data-lesson-id='906691'><a href="/m/78754/l/906691-otpbynetsizevalve">OTPByNetsizeValve</a></li>
+<li data-lesson-id='906693'><a href="/m/78754/l/906693-otpbycmsmsvalve">OTPByCMSMSValve</a></li>
+<li data-lesson-id='906695'><a href="/m/78754/l/906695-otpbysmtpvalve">OTPBySMTPValve</a></li>
+<li data-lesson-id='906697'><a href="/m/78754/l/906697-otpbyvoicevalve">OTPByVoiceValve</a></li>
+<li data-lesson-id='906699'><a href="/m/78754/l/906699-otpbysmppvalve">OTPBySMPPValve</a></li>
+<li data-lesson-id='906701'><a href="/m/78754/l/906701-otpbyucpfilevalve">OTPByUCPFileValve</a></li>
+<li data-lesson-id='906702'><a href="/m/78754/l/906702-staticotpvalve">StaticOTPValve</a></li>
+<li data-lesson-id='906704'><a href="/m/78754/l/906704-otpvalidationvalve">OTPValidationValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253654'>
+<a class='toggle-lessons' href='/m/78754/c/253654' role='button'>
+<span class='chapter-link sidebar-subheading'>OTP Token</span>
+<span class='chapter-count'>
+&nbsp;3
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906706'><a href="/m/78754/l/906706-tokenvalidationvalve">TokenValidationValve</a></li>
+<li data-lesson-id='906708'><a href="/m/78754/l/906708-legacytokenvalidationvalve">LegacyTokenValidationValve</a></li>
+<li data-lesson-id='906710'><a href="/m/78754/l/906710-tokenautoenrollment">TokenAutoEnrollment</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253657'>
+<a class='toggle-lessons' href='/m/78754/c/253657' role='button'>
+<span class='chapter-link sidebar-subheading'>One Touch</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906712'><a href="/m/78754/l/906712-issueassignmentvalve">IssueAssignmentValve</a></li>
+<li data-lesson-id='964994'><a href="/m/78754/l/964994-verifyassignmentvalve">VerifyAssignmentValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253658'>
+<a class='toggle-lessons' href='/m/78754/c/253658' role='button'>
+<span class='chapter-link sidebar-subheading'>Ne OTP</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906715'><a href="/m/78754/l/906715-gettokenexistsvalve">GetTokenExistsValve</a></li>
+<li data-lesson-id='906717'><a href="/m/78754/l/906717-storedatavalve">StoreDataValve</a></li>
+<li data-lesson-id='906719'><a href="/m/78754/l/906719-getattributevaluevalve">GetAttributeValueValve</a></li>
+<li data-lesson-id='906720'><a href="/m/78754/l/906720-getavailableattributesvalve">GetAvailableAttributesValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253661'>
+<a class='toggle-lessons' href='/m/78754/c/253661' role='button'>
+<span class='chapter-link sidebar-subheading'>Lockout</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906722'><a href="/m/78754/l/906722-lockoutcheckvalve">LockoutCheckValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253662'>
+<a class='toggle-lessons' href='/m/78754/c/253662' role='button'>
+<span class='chapter-link sidebar-subheading'>PDF</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906724'><a href="/m/78754/l/906724-addimagetopdfvalve">AddImageToPDFValve</a></li>
+<li data-lesson-id='906726'><a href="/m/78754/l/906726-padessignvalve">PADESSignValve</a></li>
+<li data-lesson-id='906728'><a href="/m/78754/l/906728-pdfsignaturestatusvalve">PDFSignatureStatusValve</a></li>
+<li data-lesson-id='906730'><a href="/m/78754/l/906730-pdfextractcertificatesvalve">PDFExtractCertificatesValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253664'>
+<a class='toggle-lessons' href='/m/78754/c/253664' role='button'>
+<span class='chapter-link sidebar-subheading'>Pipe</span>
+<span class='chapter-count'>
+&nbsp;3
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906731'><a href="/m/78754/l/906731-pipefailurevalve">PipeFailureValve</a></li>
+<li data-lesson-id='906733'><a href="/m/78754/l/906733-pipeloopexecutorvalve">PipeLoopExecutorValve</a></li>
+<li data-lesson-id='906735'><a href="/m/78754/l/906735-pipeexecutorvalve">PipeExecutorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253666'>
+<a class='toggle-lessons' href='/m/78754/c/253666' role='button'>
+<span class='chapter-link sidebar-subheading'>Property</span>
+<span class='chapter-count'>
+&nbsp;28
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906737'><a href="/m/78754/l/906737-propertyaddvalve">PropertyAddValve</a></li>
+<li data-lesson-id='906739'><a href="/m/78754/l/906739-propertybase64decodervalve">PropertyBase64DecoderValve</a></li>
+<li data-lesson-id='906741'><a href="/m/78754/l/906741-propertybase64encodervalve">PropertyBase64EncoderValve</a></li>
+<li data-lesson-id='906742'><a href="/m/78754/l/906742-propertyadddatetimevalve">PropertyAddDateTimeValve</a></li>
+<li data-lesson-id='906744'><a href="/m/78754/l/906744-propertycontainsvalve">PropertyContainsValve</a></li>
+<li data-lesson-id='906746'><a href="/m/78754/l/906746-propertyconverttoitemvalve">PropertyConvertToItemValve</a></li>
+<li data-lesson-id='906748'><a href="/m/78754/l/906748-propertycopyvalve">PropertyCopyValve</a></li>
+<li data-lesson-id='906750'><a href="/m/78754/l/906750-propertydigestvalve">PropertyDigestValve</a></li>
+<li data-lesson-id='906753'><a href="/m/78754/l/906753-propertydigestverifiervalve">PropertyDigestVerifierValve</a></li>
+<li data-lesson-id='906756'><a href="/m/78754/l/906756-propertyfromsessiontoitem">PropertyFromSessionToItem</a></li>
+<li data-lesson-id='906758'><a href="/m/78754/l/906758-propertyjoinvalve">PropertyJoinValve</a></li>
+<li data-lesson-id='906761'><a href="/m/78754/l/906761-propertykeepinmultivaluevalve">PropertyKeepInMultiValueValve</a></li>
+<li data-lesson-id='906764'><a href="/m/78754/l/906764-propertykeepvalve">PropertyKeepValve</a></li>
+<li data-lesson-id='906766'><a href="/m/78754/l/906766-propertymatchesvalve">PropertyMatchesValve</a></li>
+<li data-lesson-id='906769'><a href="/m/78754/l/906769-propertymultivaluediffvalve">PropertyMultiValueDiffValve</a></li>
+<li data-lesson-id='906772'><a href="/m/78754/l/906772-propertyremovefrommultivaluevalve">PropertyRemoveFromMultiValueValve</a></li>
+<li data-lesson-id='906774'><a href="/m/78754/l/906774-propertyremovevalve">PropertyRemoveValve</a></li>
+<li data-lesson-id='906777'><a href="/m/78754/l/906777-propertyreplaceregexvalve">PropertyReplaceRegexValve</a></li>
+<li data-lesson-id='906780'><a href="/m/78754/l/906780-propertyreplacevalve">PropertyReplaceValve</a></li>
+<li data-lesson-id='906783'><a href="/m/78754/l/906783-propertysetvalve">PropertySetValve</a></li>
+<li data-lesson-id='906785'><a href="/m/78754/l/906785-propertysplitbyindexvalve">PropertySplitByIndexValve</a></li>
+<li data-lesson-id='906788'><a href="/m/78754/l/906788-propertysplitvalve">PropertySplitValve</a></li>
+<li data-lesson-id='906790'><a href="/m/78754/l/906790-propertystringbase64encodervalve">PropertyStringBase64EncoderValve</a></li>
+<li data-lesson-id='906793'><a href="/m/78754/l/906793-propertysubstringvalve">PropertySubstringValve</a></li>
+<li data-lesson-id='906795'><a href="/m/78754/l/906795-propertytolowervalve">PropertyToLowerValve</a></li>
+<li data-lesson-id='906798'><a href="/m/78754/l/906798-propertytouppervalve">PropertyToUpperValve</a></li>
+<li data-lesson-id='906801'><a href="/m/78754/l/906801-propertyvaluemapping">PropertyValueMapping</a></li>
+<li data-lesson-id='933741'><a href="/m/78754/l/933741-propertystringbase64decodervalve">PropertyStringBase64DecoderValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253674'>
+<a class='toggle-lessons' href='/m/78754/c/253674' role='button'>
+<span class='chapter-link sidebar-subheading'>Radius</span>
+<span class='chapter-count'>
+&nbsp;2
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906804'><a href="/m/78754/l/906804-radiusotpvalidator">RADIUSOTPValidator</a></li>
+<li data-lesson-id='906806'><a href="/m/78754/l/906806-radiususernameandpasswordvalidator">RADIUSUserNameAndPasswordValidator</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253676'>
+<a class='toggle-lessons' href='/m/78754/c/253676' role='button'>
+<span class='chapter-link sidebar-subheading'>SAML</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906809'><a href="/m/78754/l/906809-assertionconsumer">AssertionConsumer</a></li>
+<li data-lesson-id='906812'><a href="/m/78754/l/906812-assertionprovider">AssertionProvider</a></li>
+<li data-lesson-id='906815'><a href="/m/78754/l/906815-authnrequestdecoder">AuthnRequestDecoder</a></li>
+<li data-lesson-id='906818'><a href="/m/78754/l/906818-logoutconsumer">LogoutConsumer</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253680'>
+<a class='toggle-lessons' href='/m/78754/c/253680' role='button'>
+<span class='chapter-link sidebar-subheading'>Script</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906820'><a href="/m/78754/l/906820-scriptevalvalve">ScriptEvalValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253682'>
+<a class='toggle-lessons' href='/m/78754/c/253682' role='button'>
+<span class='chapter-link sidebar-subheading'>Session</span>
+<span class='chapter-count'>
+&nbsp;16
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906822'><a href="/m/78754/l/906822-sessionbindtouidvalve">SessionBindToUidValve</a></li>
+<li data-lesson-id='906825'><a href="/m/78754/l/906825-sessionbindvalve">SessionBindValve</a></li>
+<li data-lesson-id='906826'><a href="/m/78754/l/906826-sessioncreatevalve">SessionCreateValve</a></li>
+<li data-lesson-id='978495'><a href="/m/78754/l/978495-sessiondeletevalve">SessionDeleteValve</a></li>
+<li data-lesson-id='906829'><a href="/m/78754/l/906829-sessiondumptolog">SessionDumpToLog</a></li>
+<li data-lesson-id='906832'><a href="/m/78754/l/906832-sessionloadbyaliasvalve">SessionLoadByAliasValve</a></li>
+<li data-lesson-id='906835'><a href="/m/78754/l/906835-sessionloadvalve">SessionLoadValve</a></li>
+<li data-lesson-id='906836'><a href="/m/78754/l/906836-sessionpersistvalve">SessionPersistValve</a></li>
+<li data-lesson-id='906839'><a href="/m/78754/l/906839-sessionpropertyaddvalve">SessionPropertyAddValve</a></li>
+<li data-lesson-id='906842'><a href="/m/78754/l/906842-sessionpropertyreplacevalve">SessionPropertyReplaceValve</a></li>
+<li data-lesson-id='906844'><a href="/m/78754/l/906844-sessionpropertyremovevalve">SessionPropertyRemoveValve</a></li>
+<li data-lesson-id='906847'><a href="/m/78754/l/906847-sessionremovevalve">SessionRemoveValve</a></li>
+<li data-lesson-id='906850'><a href="/m/78754/l/906850-sessionresolvevalve">SessionResolveValve</a></li>
+<li data-lesson-id='906852'><a href="/m/78754/l/906852-sessiontouchvalve">SessionTouchValve</a></li>
+<li data-lesson-id='906855'><a href="/m/78754/l/906855-sessionunbindvalve">SessionUnbindValve</a></li>
+<li data-lesson-id='906858'><a href="/m/78754/l/906858-sessionclearallaliasvavle">SessionClearAllAliasVavle</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253689'>
+<a class='toggle-lessons' href='/m/78754/c/253689' role='button'>
+<span class='chapter-link sidebar-subheading'>Sign</span>
+<span class='chapter-count'>
+&nbsp;4
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906864'><a href="/m/78754/l/906864-niassignvalve">NIASSignValve</a></li>
+<li data-lesson-id='906866'><a href="/m/78754/l/906866-bankidsignvalve">BankIDSignValve</a></li>
+<li data-lesson-id='906869'><a href="/m/78754/l/906869-bankidcollectsignaturevalve">BankIDCollectSignatureValve</a></li>
+<li data-lesson-id='906872'><a href="/m/78754/l/906872-niascollectsignaturevalve">NIASCollectSignatureValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253692'>
+<a class='toggle-lessons' href='/m/78754/c/253692' role='button'>
+<span class='chapter-link sidebar-subheading'>Validate</span>
+<span class='chapter-count'>
+&nbsp;1
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906874'><a href="/m/78754/l/906874-internaluserstorevalidatorvalve">InternalUserStoreValidatorValve</a></li>
+</ul>
+</li>
+<li class='chapter-list-item' data-section-id='253693'>
+<a class='toggle-lessons' href='/m/78754/c/253693' role='button'>
+<span class='chapter-link sidebar-subheading'>x509</span>
+<span class='chapter-count'>
+&nbsp;10
+</span>
+</a>
+<ul class='nested-chapter-lessons'>
+<li data-lesson-id='906877'><a href="/m/78754/l/906877-common">Common</a></li>
+<li data-lesson-id='906880'><a href="/m/78754/l/906880-certificategeneratorvalve">CertificateGeneratorValve</a></li>
+<li data-lesson-id='906883'><a href="/m/78754/l/906883-certificateissuervalve">CertificateIssuerValve</a></li>
+<li data-lesson-id='906886'><a href="/m/78754/l/906886-certificatevalidatorvalve">CertificateValidatorValve</a></li>
+<li data-lesson-id='906889'><a href="/m/78754/l/906889-dnsplittervalve">DNSplitterValve</a></li>
+<li data-lesson-id='906892'><a href="/m/78754/l/906892-pemconvertervalve">PEMConverterValve</a></li>
+<li data-lesson-id='906895'><a href="/m/78754/l/906895-pkcs10extractorvalve">PKCS10ExtractorValve</a></li>
+<li data-lesson-id='906898'><a href="/m/78754/l/906898-pkcs10validatorvalve">PKCS10ValidatorValve</a></li>
+<li data-lesson-id='906899'><a href="/m/78754/l/906899-simplecertvalidator">SimpleCertValidator</a></li>
+<li data-lesson-id='929356'><a href="/m/78754/l/929356-createshorttermkeystorevalve">CreateShortTermKeyStoreValve</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='screensteps-sidebar-widget' id='lesson-sidebar-info'>
+
+
+<ul class='icon-links'>
+<li>
+<a class='print-article' href='#' onclick='printArticle();' target='_blank'>
+Print Article
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(jQuery) {
+    var lesson_id = 906590;
+    var section_id = 253618;
+    var expansion = 'none';
+    switch(expansion) {
+      case 'none':
+        jQuery('ul.nested-chapter-lessons').hide();
+        break;
+      case 'all':
+        jQuery('ul.nested-chapter-lessons').show();
+        jQuery('li.chapter-list-item a.toggle-lessons').addClass('open');
+        break;
+      case 'one':
+        jQuery('ul.nested-chapter-lessons').hide();
+        jQuery('li.chapter-list-item[data-section-id="' + section_id + '"] ul.nested-chapter-lessons').show();
+        jQuery('li.chapter-list-item[data-section-id="' + section_id + '"] a.toggle-lessons').addClass('open');
+        break;
+    }
+    jQuery('li.chapter-list-item[data-section-id="' + section_id + '"]').addClass('here');
+    jQuery('li[data-lesson-id="' + lesson_id + '"]').addClass('here');
+  });
+</script>
+<noscript>Enable javascript to expand/contract chapters</noscript>
+
+
+</main>
+</div>
+<div aria-labelledby='modal-label' class='screensteps-modal' id='screensteps-modal' role='dialog'>
+<span id='modal-label'>
+Inline referenced article
+</span>
+<div class='screensteps-modal__box'>
+<a class='screensteps-modal__close' href='#'>
+×
+</a>
+<span class='screensteps-loading-wrapper'>
+<span class='screensteps-loading'></span>
+</span>
+<div class='screensteps-modal__content screensteps-article-content'></div>
+</div>
+</div>
+</body>
+</html>
